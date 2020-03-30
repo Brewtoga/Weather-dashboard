@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="normalize.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Weather Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+    <script src="script.js"></script>
 </head>
+<header class="blue darken-4 center white-text">
+    <h1>WEATHER DASHBOARD</h1>
+    <h3 class="date">Date</h3>
+    <h5 class="hour">Hour</h5>
+</header>
+
 <body>
-    
+    <section id="" class="container center">
+        <div class="row">
+            <div class="col s3"></div>
+            <div class="col s5">
+                <input type="text" class="searchField white center">
+            </div>
+            <div class="col s1">
+                <button class="enter btn blue darken-4">ENTER</button>
+            </div>
+            <div class="col s3"></div>
+        </div>
+
+        <h4>Enter a city to find the five day forcast</h4>
+        </input>
+    </section>
+    <section id="displayArea" class="container">
+
+    </section>
+
 </body>
+<script src="script.js"></script>
+
 </html>
