@@ -1,3 +1,4 @@
-body{
-    background-image: url(assets/sunset.jpeg);
-    }
+.lineHeight { 
+    min-height: 80px;
+    font-size: 60px;
+}

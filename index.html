@@ -13,35 +13,51 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
-    <script src="script.js"></script>
+    <script src="weather.js"></script>
 </head>
-<header class="blue darken-4 center white-text">
-    <h1>WEATHER DASHBOARD</h1>
-    <h3 class="date">Date</h3>
-    <h5 class="hour">Hour</h5>
-</header>
 
-<body>
-    <section id="" class="container center">
+<body class="white">
+    <header class="lineHeight blue darken-4 center white-text">
+        <img class='responsive-img' src="assets/Screen Shot 2020-04-03 at 12.51.12 PM.png" alt="">
+    </header>
+    <div class="container center blue-text text-darken-4">
+        <h3 class="date">Date</h3>
+        <h5 class="hour">Hour</h5>
+    </div>
+
+    <section id="" class="">
         <div class="row">
             <div class="col s3"></div>
-            <div class="col s5">
-                <input type="text" class="searchField white center">
-            </div>
-            <div class="col s1">
-                <button class="enter btn blue darken-4">ENTER</button>
+            <div class="col s6">
+                <input id="locationInput" type="text" class="blue darken-4 center white-text">
             </div>
             <div class="col s3"></div>
         </div>
-
-        <h4>Enter a city to find the five day forcast</h4>
-        </input>
-    </section>
-    <section id="displayArea" class="container">
+        <h4 class="center blue-text text-darken-4">Enter a city or zip code and then choose desired forcast.</h4>
+        <div class="row">
+            <div class="col s3"></div>
+            <button id='searchBTN1' class="btn waves-effect waves-light blue darken-4 col s2">3-Hour
+            </button>
+            <div class="col s2"></div>
+            <button id='searchBTN2' class="btn waves-effect waves-light blue darken-4 col s2">5-Day
+            </button>
+            <div class="col s3"></div>
+        </div>
+        <div class="row">
+            <div class="col s3"></div>
+            <button id='favBTN1' class="btn waves-effect waves-light blue darken-4 col s2">+ Favorites 3 hour
+            </button>
+            <div class="col s2"></div>
+            <button id='favBTN2' class="btn waves-effect waves-light blue darken-4 col s2">+ Favorites 5 day
+            </button>
+            <div class="col s3"></div>
+        </div>
+        </section>
+    <section id="displayArea" class="container cneter">
 
     </section>
 
 </body>
-<script src="script.js"></script>
+<script src="weather.js"></script>
 
 </html>
