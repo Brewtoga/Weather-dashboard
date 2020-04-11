@@ -2,3 +2,10 @@
     min-height: 80px;
     font-size: 60px;
 }
+
+.padding {
+    padding: 10px;
+}
+.marginRT{
+    margin-right: 5px;
+}

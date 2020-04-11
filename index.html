@@ -25,36 +25,34 @@
         <h5 class="hour">Hour</h5>
     </div>
 
-    <section id="" class="">
-        <div class="row">
-            <div class="col s3"></div>
-            <div class="col s6">
-                <input id="locationInput" type="text" class="blue darken-4 center white-text">
+    <section id="" class="container">
+        <div class="row  valign-wrapper">
+            <div class='col s2'></div>
+            <div class="col s4">
+                <input id="locationInput" type="text" class="blue center white-text">
             </div>
-            <div class="col s3"></div>
+            <button id='searchBTN1' class="btn waves-effect waves-light blue darken-4 col s2">Search
+            </button>
+            <div class='col s2'></div>
         </div>
-        <h4 class="center blue-text text-darken-4">Enter a city or zip code and then choose desired forcast.</h4>
-        <div class="row">
-            <div class="col s3"></div>
-            <button id='searchBTN1' class="btn waves-effect waves-light blue darken-4 col s2">3-Hour
-            </button>
-            <div class="col s2"></div>
-            <button id='searchBTN2' class="btn waves-effect waves-light blue darken-4 col s2">5-Day
-            </button>
-            <div class="col s3"></div>
+        <h4 class="blue-text text-darken-4 center col s12">Enter a city to get the current and five day
+            forcast.
+        </h4>
+    </section>
+    <history class="row">
+        <div class="container">
+            <button id='favBTN4' class="hide btn waves-effect waves-light blue darken-4 col s2 marginRT"></button>
+            <button id='favBTN3' class="hide btn waves-effect waves-light blue darken-4 col s2 marginRT"></button>
+            <button id='favBTN2' class="hide btn waves-effect waves-light blue darken-4 col s2 marginRT"></button>
+            <button id='favBTN1' class="hide btn waves-effect waves-light blue darken-4 col s2 marginRT"></button>
+            <button id='favBTN0' class="hide btn waves-effect waves-light blue darken-4 col s2 marginRT"></button>
         </div>
-        <div class="row">
-            <div class="col s3"></div>
-            <button id='favBTN1' class="btn waves-effect waves-light blue darken-4 col s2">+ Favorites 3 hour
-            </button>
-            <div class="col s2"></div>
-            <button id='favBTN2' class="btn waves-effect waves-light blue darken-4 col s2">+ Favorites 5 day
-            </button>
-            <div class="col s3"></div>
-        </div>
-        </section>
-    <section id="displayArea" class="container cneter">
+    </history>
 
+
+    <section id="displayArea" class="container center">
+        <div id="todaysWeather" class="card yellow lighten-3">
+        </div>
     </section>
 
 </body>
