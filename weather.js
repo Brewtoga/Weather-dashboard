@@ -1,23 +1,20 @@
 window.onload = () => {
-
-    console.log(moment().format('LT'));
-    let todaysDate = moment().format("L");
     $(".hour").text(moment().format('dddd LT'));
     $(".date").text(moment().format('MMMM DD YYYY'));
     let apiKey = "c9a4470d4efaf75504fc4a5aa2627f1f";
     let locationArray = JSON.parse(localStorage.getItem("location")) || [];
-    // let fiveDayQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + location + "&appid=" + apiKey + "&units=imperial";
+    let reverseLocationArray = locationArray.reverse();
 
     if (locationArray && locationArray.length > 0) {
-        while (locationArray.length > 3) {
+        while (locationArray.length > 5) {
             locationArray.shift();
         }
-        makeCall(locationArray[0]);
+        makeCall(reverseLocationArray[0]);
     }
 
     $("#searchBTN1").on("click", (event) => {
         event.preventDefault();
-        let location = $("#locationInput").val().trim();
+        let location = $("#locationInput").val().toUpperCase().trim();
         console.log(location)
         for (let i = 0; i < locationArray.length; i++) {
             if (locationArray[i] === location) {
@@ -28,32 +25,84 @@ window.onload = () => {
         if (location != null) {
 
             locationArray.push(location);
-            while (locationArray.length > 4) {
+            while (locationArray.length > 5) {
                 locationArray.shift();
             }
 
             localStorage.setItem("locationArray", JSON.stringify(locationArray));
         }
 
-        makeCall();
+
+        makeCall(location);
     })
 
-    const makeCall = () => {
-        getWeather();
-        // fiveDay();    
+    const makeCall = (location) => {
+        getWeather(location);
+        fiveDay(location);
         displayHistory();
     }
 
+    const fiveDay = (location) => {
+
+        let fiveDayQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + location + "&appid=" + apiKey + "&units=imperial";
+
+        $.ajax({
+
+            url: fiveDayQueryURL,
+            method: "GET"
+        })
+            .then(function (response) {
+
+                $("#fiveDayDisplay").empty();
+                let j = 0;
+                for (let i = 7; i < response.list.length; i += 8) {
+                    j++;
+                    let iconcode = response.list[i].weather[0].icon;
+                    let newIconcode = iconcode.slice(0, -1);
+                    newIconcode = newIconcode + "d";
+                    let iconurl = "https://openweathermap.org/img/w/" + newIconcode + ".png";
+
+                    let fiveDayDisplay = $("<div>").attr("id", "fiveDayDisplay" + i).addClass("card blue lighten-2 col s2");
+
+                    let temp = response.list[i].main.temp;
+                    let humidity = response.list[i].main.humidity;
+                    let dateForFiveDay = moment().add(j, 'days').format('LLLL')
+
+
+                    $("#fiveDayDisplay").append(fiveDayDisplay);
+                    $("#fiveDayDisplay" + i).append(
+                        `<h5>${dateForFiveDay}</h5>
+                        <h6>Temp: ${temp.toFixed(0)}&#176;F</h6>
+                        <h6>Humidity: ${humidity}%<h2><img src =${iconurl}></h2></h6>`
+
+                    )
+
+                }
+
+            })
+
+    }
+
+
 
     const displayHistory = () => {
-        console.log(locationArray);
+
+        $("#history").empty();
         for (let i = 0; i < locationArray.length; i++) {
-            $("#favBTN" + (i)).text(locationArray[i]).removeClass("hide");
+            let favButton = $("<button>").attr('class', 'favBTN waves-effect waves-light blue').attr('data-name', locationArray[i]);
+            $("#history").append(favButton);
+            $(favButton).text(locationArray[i]);
         }
     }
 
-   getWeather=()=>{
-        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + locationArray[0] + "&APPID=" + apiKey + "&units=imperial";
+    $(document).on("click", ".favBTN", function () {
+
+        location = $(this).attr("data-name");
+        console.log(location)
+    })
+
+    getWeather = (location) => {
+        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + location + "&APPID=" + apiKey + "&units=imperial";
 
 
         $.ajax({
@@ -62,7 +111,7 @@ window.onload = () => {
             method: "GET"
 
         })
-            .then((response)=> {
+            .then((response) => {
 
                 $("#todaysWeather").empty();
 
@@ -78,13 +127,12 @@ window.onload = () => {
                 <h3>Temperature : ${(response.main.temp).toFixed(0)}&#176;F</h3>
                     <h4>Wind Speed : ${response.wind.speed} mph</h4>
                     <h4>Humidity :${response.main.humidity}%</h4>
-                    <h4 id='uv'></h4>`
-                );
+                    <h4 id='uv'></h4>`);
 
             })
     }
 
-    indexUV=(uvLon, uvLat)=> {
+    indexUV = (uvLon, uvLat) => {
         let queryURL = "https://api.openweathermap.org/data/2.5/uvi?appid=15e701943db0eab65638c75f992c9b15&lat=" + uvLat + "&lon=" + uvLon;
 
         $.ajax({
