@@ -1,21 +1,10 @@
-window.onload = () => {
+window.onload = function () {
     $(".hour").text(moment().format('dddd LT'));
     $(".date").text(moment().format('MMMM DD YYYY'));
     let apiKey = "c9a4470d4efaf75504fc4a5aa2627f1f";
-    let locationArray = JSON.parse(localStorage.getItem("location")) || [];
+    let locationArray = JSON.parse(localStorage.getItem("locationArray")) || [];
     let reverseLocationArray = locationArray.reverse();
-
-    if (locationArray && locationArray.length > 0) {
-        while (locationArray.length > 5) {
-            locationArray.shift();
-        }
-        makeCall(reverseLocationArray[0]);
-    }
-
-    $("#searchBTN1").on("click", (event) => {
-        event.preventDefault();
-        let location = $("#locationInput").val().toUpperCase().trim();
-        console.log(location)
+    const checkArray = location => {
         for (let i = 0; i < locationArray.length; i++) {
             if (locationArray[i] === location) {
                 locationArray.splice(i, 1);
@@ -31,9 +20,14 @@ window.onload = () => {
 
             localStorage.setItem("locationArray", JSON.stringify(locationArray));
         }
+    };
 
-
+    $("#searchBTN1").on("click", (event) => {
+        event.preventDefault();
+        let location = $("#locationInput").val().toUpperCase().trim();
+        checkArray(location);
         makeCall(location);
+
     })
 
     const makeCall = (location) => {
@@ -43,7 +37,6 @@ window.onload = () => {
     }
 
     const fiveDay = (location) => {
-
         let fiveDayQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + location + "&appid=" + apiKey + "&units=imperial";
 
         $.ajax({
@@ -97,8 +90,9 @@ window.onload = () => {
 
     $(document).on("click", ".favBTN", function () {
 
-        location = $(this).attr("data-name");
-        console.log(location)
+        let city = $(this).attr("data-name");
+        checkArray(city);
+        makeCall(city);
     })
 
     getWeather = (location) => {
@@ -162,6 +156,16 @@ window.onload = () => {
                 }
 
             })
+    }
+
+    if (locationArray && locationArray.length > 0) {
+        while (locationArray.length > 5) {
+            locationArray.shift();
+        }
+        console.log(reverseLocationArray);
+        console.log('firstcall');
+        // let location = reverseLocationArray[0]
+        makeCall(reverseLocationArray[0]);
     }
 
 };
